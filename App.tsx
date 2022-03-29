@@ -1,12 +1,26 @@
+import React  from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { useDatabase } from './hooks/useDatabase';
+
+import { Home } from './screens/Home';
+import { NavigationContainer } from '@react-navigation/native';
+import { Router } from './routes';
 
 export default function App() {
+  const [_, { createTable }] = useDatabase();
+
+  createTable();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <SafeAreaView style={{flex: 1,}}>
+        <StatusBar animated translucent={false} style='inverted' />
+        <KeyboardAvoidingView style={{flex: 1,}}>
+          <Router />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
 
